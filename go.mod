@@ -3,6 +3,7 @@ module github.com/gmassman/testbox
 go 1.13
 
 require (
-	github.com/skuposinc/utils v0.0.0-20191018190204-d6c226c76198 // indirect
+	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/spf13/cobra v0.0.3
+	github.com/spf13/pflag v1.0.5 // indirect
 )
