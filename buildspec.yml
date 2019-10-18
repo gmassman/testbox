@@ -11,13 +11,12 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      # - echo Getting packages
-      # - go get ./...
       - echo Compiling the Go code...
-      - go build
+      - GOARCH=amd64 GOOS=linux go build -o bin/linux/txbox
+      - GOARCH=amd64 GOOS=darwin go build -o bin/darwin/txbox
+      - GOARCH=amd64 GOOS=windows go build -o bin/windows/txbox
+      - zip -r bin bin
       - echo Build completed on `date`
-  # post_build:
-  #   commands:
 artifacts:
   files:
-    - testbox
+    - bin.zip
