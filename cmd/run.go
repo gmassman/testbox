@@ -31,8 +31,16 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("run called")
+		factorial(15, func(i int) { fmt.Println("result: ", i) })
 	},
+}
+
+func factorial(n int, f func(i int)) {
+	if n == 0 || n == 1 {
+		f(1)
+	} else {
+		factorial(n-1, func(y int) { f(n * y) })
+	}
 }
 
 func init() {
