@@ -16,13 +16,11 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@v1
 
-      - name: Build
-        run: mkdir -p bin/${{ matrix.os }} && go build -o bin/${{ matrix.os }}
+      - name: Build & Release
         env:
           GOOS: ${{ matrix.os }}
           GOARCH: amd64
-
-      - name: Release
+        run: mkdir -p bin/${{ matrix.os }} && go build -o bin/${{ matrix.os }}
         uses: actions/upload-artifact@v1
         with:
           name: ${{ matrix.os }}-testbox
