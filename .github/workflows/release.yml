@@ -5,7 +5,6 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 1
       matrix:
         goos: [darwin, linux]
     steps:
@@ -26,7 +25,8 @@ jobs:
           go build -o bin/${{ matrix.goos }}
 
       - name: Release
-        uses: actions/upload-artifact@v1
-        with:
-          name: ${{ matrix.goos }}-testbox
-          path: bin/${{ matrix.goos }}/testbox
+        uses: fnkr/github-action-ghr@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GHR_PATH: bin/${{ matrix.goos }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
