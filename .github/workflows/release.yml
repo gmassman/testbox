@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [linux, darwin, windows]
+        os: [darwin, windows, linux]
     steps:
       - name: Set up Go 1.13
         uses: actions/setup-go@v1
@@ -16,11 +16,11 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@v1
 
-      - name: Build
-        run: mkdir -p bin/${{ matrix.os }} && go build -o bin/${{ matrix.os }}
+      - name: Build & Release
         env:
           GOOS: ${{ matrix.os }}
           GOARCH: amd64
+        run: mkdir -p bin/${{ matrix.os }} && go build -o bin/${{ matrix.os }}
 
       - name: Release
         uses: actions/upload-artifact@v1
