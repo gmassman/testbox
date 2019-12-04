@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        goos: [darwin, linux]
+        goos: [darwin, windows, linux]
     steps:
       - name: Set up Go 1.13
         uses: actions/setup-go@v1
@@ -21,12 +21,14 @@ jobs:
           GOOS: ${{ matrix.goos }}
           GOARCH: amd64
         run: |
-          mkdir -p bin/${{ matrix.goos }}
-          go build -o bin/${{ matrix.goos }}
+          mkdir -p ${{ matrix.goos }}
+          go build -o ${{ matrix.goos }}
+          zip -r ${{ matrix.goos }}-amd64-${{ github.event.release.tag_name }} ${{ matrix.goos }}
+          ls -la
 
       - name: Release
         uses: fnkr/github-action-ghr@v1
         if: startsWith(github.ref, 'refs/tags/')
         env:
-          GHR_PATH: bin/${{ matrix.goos }}
+          GHR_PATH: ${{ matrix.goos }}-amd64-${{ github.event.release.tag_name }}.zip
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
