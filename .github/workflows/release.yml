@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [linux darwin windows]
+        os: [linux, darwin, windows]
     steps:
       - name: Set up Go 1.13
         uses: actions/setup-go@v1
