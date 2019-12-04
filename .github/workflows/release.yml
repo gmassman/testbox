@@ -5,6 +5,7 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     strategy:
+      max-parallel: 1
       matrix:
         goos: [darwin, windows, linux]
     steps:
