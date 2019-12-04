@@ -21,13 +21,13 @@ jobs:
           GOOS: ${{ matrix.goos }}
           GOARCH: amd64
         run: |
-          mkdir -p bin/${{ matrix.goos }}-amd64-${{ github.event.release.tag_name }}
-          go build -o bin/${{ matrix.goos }}-amd64-${{ github.event.release.tag_name }}
+          mkdir -p ${{ matrix.goos }}-amd64-${{ github.event.release.tag_name }}
+          go build -o ${{ matrix.goos }}-amd64-${{ github.event.release.tag_name }}
+          tar -czvf ${{ matrix.goos }}-amd64-${{ github.event.release.tag_name }}.tar.gz ${{ matrix.goos }}-amd64-${{ github.event.release.tag_name }}
 
       - name: Release
         uses: fnkr/github-action-ghr@v1
         if: startsWith(github.ref, 'refs/tags/')
         env:
-          GHR_COMPRESS: gz
-          GHR_PATH: bin
+          GHR_PATH: ${{ matrix.goos }}-amd64-${{ github.event.release.tag_name }}.tar.gz
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
