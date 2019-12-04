@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        goos: [darwin, linux]
+        goos: [darwin, windows, linux]
     steps:
       - name: Set up Go 1.13
         uses: actions/setup-go@v1
@@ -28,5 +28,5 @@ jobs:
         uses: fnkr/github-action-ghr@v1
         if: startsWith(github.ref, 'refs/tags/')
         env:
-          GHR_PATH: bin/${{ matrix.goos }}
+          GHR_PATH: bin
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
