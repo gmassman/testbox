@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Build
-        run: mkdir -p bin/${{ matrix.os }} && go build -o bin/${{ matrix.os }}
+        run: mkdir -p ./bin/${{ matrix.os }} && go build -o ./bin/${{ matrix.os }}
         env:
           GOOS: ${{ matrix.os }}
           GOARCH: amd64
@@ -26,4 +26,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: ${{ matrix.os }}-testbox
-          path: bin/${{ matrix.os }}/testbox
+          path: ./bin/${{ matrix.os }}/testbox
