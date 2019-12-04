@@ -1,8 +1,8 @@
 name: Publish binaries on release
 on: release
 jobs:
-  build:
-    name: Build
+  build_and_release:
+    name: Release
     runs-on: ubuntu-latest
     strategy:
       matrix:
