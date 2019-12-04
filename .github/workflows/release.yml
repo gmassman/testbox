@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [linux, darwin, windows]
+        goos: [darwin, windows, linux]
     steps:
       - name: Set up Go 1.13
         uses: actions/setup-go@v1
@@ -17,13 +17,15 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Build
-        run: mkdir -p bin/${{ matrix.os }} && go build -o bin/${{ matrix.os }}
         env:
-          GOOS: ${{ matrix.os }}
+          GOOS: ${{ matrix.goos }}
           GOARCH: amd64
+        run: |
+          mkdir -p bin/${{ matrix.goos }}
+          go build -o bin/${{ matrix.goos }}
 
       - name: Release
         uses: actions/upload-artifact@v1
         with:
-          name: ${{ matrix.os }}-testbox
-          path: bin/${{ matrix.os }}/testbox
+          name: ${{ matrix.goos }}-testbox
+          path: bin/${{ matrix.goos }}/testbox
