@@ -1,11 +1,12 @@
 name: Publish binaries on release
-on: release
+on:
+  release:
+    types: [created]
 jobs:
   build_and_release:
     name: Release
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 1
       matrix:
         goos: [darwin, windows, linux]
     steps:
